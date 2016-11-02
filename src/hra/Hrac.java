@@ -1,5 +1,7 @@
 package hra;
 
+import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public class Hrac {
@@ -39,8 +41,28 @@ public class Hrac {
 		return y;
 	}
 	
-	
 	public void skok(){
 		rychlost = -17;
 	}
+	//zajistuje pohyb hrace
+	public void posun(){
+		rychlost = rychlost + KOEF_ZRYCHLENI;
+		y = y + rychlost;
+	}
+	
+	public void paint(Graphics g){
+		g.drawImage(img, x, y, null);
+	}
+	
+	public int getVyskaHrace(){
+		return img.getHeight();
+	}
+	//vraci pomyslny ctverec/obdelnik, ktery opisuje toho hrace
+	public Rectangle getMez(){
+		return new Rectangle(x, y, img.getWidth(), img.getHeight());
+	}
+	
+	
+	
+	
 }
