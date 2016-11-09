@@ -6,9 +6,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
+import obrazek.Obrazek;
+import obrazek.ZdrojObrazku;
+import obrazek.ZdrojObrazkuSoubor;
 
 public class HraciPlocha extends JPanel {
 	public static final int VYSKA = 800;
@@ -24,6 +29,15 @@ public class HraciPlocha extends JPanel {
 	private int posunPozadiX = 0;
 
 	public HraciPlocha() {
+		ZdrojObrazkuSoubor z = new ZdrojObrazkuSoubor();
+		z.naplnMapu();
+		z.setZdroj(Obrazek.POZADI.getKlic());
+		try {
+			imgPozadi = z.getObrazek();
+		} catch (IOException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 
 	}
 
@@ -35,22 +49,21 @@ public class HraciPlocha extends JPanel {
 		// druhe je posunuto o sirku obrazku
 		g.drawImage(imgPozadi, posunPozadiX + imgPozadi.getWidth(), 0, null);
 	}
-	
-	
-	private void posun(){
-		if(hraBezi && !pauza){
-			
+
+	private void posun() {
+		if (hraBezi && !pauza) {
+
 			// TODO
-			//posun pozice pozadi hraci plochy (scrollovani)
+			// posun pozice pozadi hraci plochy (scrollovani)
 			posunPozadiX = posunPozadiX + HraciPlocha.RYCHLOST;
-			//kdyz se pozadi cele doposouva, zacni od zacatku
-			if(posunPozadiX == -imgPozadi.getWidth()){
-				posunPozadiX =0;
+			// kdyz se pozadi cele doposouva, zacni od zacatku
+			if (posunPozadiX == -imgPozadi.getWidth()) {
+				posunPozadiX = 0;
 			}
 		}
 	}
-	
-	private void spustHru(){
+
+	private void spustHru() {
 		casovacAnimace = new Timer(20, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -58,19 +71,19 @@ public class HraciPlocha extends JPanel {
 				posun();
 			}
 		});
-		
+
 		hraBezi = true;
 		casovacAnimace.start();
 	}
-	
-	public void pripravHraciPlochu(){
+
+	public void pripravHraciPlochu() {
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				if(e.getButton()==MouseEvent.BUTTON1){
-					//TODO skok hrace
+				if (e.getButton() == MouseEvent.BUTTON1) {
+					// TODO skok hrace
 				}
-				//pauza
+				// pauza
 				if (e.getButton() == MouseEvent.BUTTON3) {
 					if (hraBezi) {
 						if (pauza) {
@@ -85,13 +98,13 @@ public class HraciPlocha extends JPanel {
 				}
 			}
 		});
-		
+
 		setSize(SIRKA, VYSKA);
-	
+
 	}
 
 	protected void pripravNovouHru() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	}
+}
