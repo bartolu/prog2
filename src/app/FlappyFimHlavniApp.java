@@ -26,8 +26,8 @@ public class FlappyFimHlavniApp extends JFrame {
 		getContentPane().add(hp, "Center");
 		hp.setVisible(true);
 		this.revalidate();
-		hp.repaint();
-		hp.pripravHraciPlochu();
+		this.repaint();
+		//hp.pripravHraciPlochu();
 		
 	}
 	
@@ -38,6 +38,7 @@ public class FlappyFimHlavniApp extends JFrame {
 			public void run() {
 				FlappyFimHlavniApp app = new FlappyFimHlavniApp();
 				app.initGUI();
+				app.spust();
 				
 			}
 		});

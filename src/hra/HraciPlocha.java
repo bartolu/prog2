@@ -25,7 +25,7 @@ public class HraciPlocha extends JPanel {
 	private BufferedImage imgPozadi;
 	private Timer casovacAnimace;
 	private boolean pauza = false;
-	private boolean hraBezi = true;
+	private boolean hraBezi = false;
 	private int posunPozadiX = 0;
 
 	public HraciPlocha() {
