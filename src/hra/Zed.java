@@ -20,6 +20,6 @@ public class Zed {
 	public Zed(int vzdaleostZdiOdZacatkuHraciPlochy) {
 		this.x = vzdaleostZdiOdZacatkuHraciPlochy;
 		
-		//TODO 
+		//TODO  
 	}
 }
