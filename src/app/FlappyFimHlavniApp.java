@@ -22,13 +22,11 @@ public class FlappyFimHlavniApp extends JFrame {
 	
 	public void spust(){
 		hp = new HraciPlocha();
-		
+		hp.pripravHraciPlochu();
 		getContentPane().add(hp, "Center");
 		hp.setVisible(true);
 		this.revalidate();
 		this.repaint();
-		//hp.pripravHraciPlochu();
-		
 	}
 	
 	public static void main(String[] args) {

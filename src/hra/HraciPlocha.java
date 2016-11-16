@@ -16,7 +16,7 @@ import obrazek.ZdrojObrazku;
 import obrazek.ZdrojObrazkuSoubor;
 
 public class HraciPlocha extends JPanel {
-	public static final int VYSKA = 800;
+	public static final int VYSKA = 838;
 	public static final int SIRKA = 600;
 
 	// rychlost behu pozadi
@@ -32,6 +32,7 @@ public class HraciPlocha extends JPanel {
 		ZdrojObrazkuSoubor z = new ZdrojObrazkuSoubor();
 		z.naplnMapu();
 		z.setZdroj(Obrazek.POZADI.getKlic());
+		
 		try {
 			imgPozadi = z.getObrazek();
 		} catch (IOException e) {
@@ -87,8 +88,10 @@ public class HraciPlocha extends JPanel {
 				if (e.getButton() == MouseEvent.BUTTON3) {
 					if (hraBezi) {
 						if (pauza) {
+							
 							pauza = false;
 						} else {
+							
 							pauza = true;
 						}
 					} else {
