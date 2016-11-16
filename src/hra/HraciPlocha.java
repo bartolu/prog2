@@ -35,6 +35,7 @@ public class HraciPlocha extends JPanel {
 	private int posunPozadiX = 0;
 
 	public HraciPlocha() {
+		//TODO
 		ZdrojObrazkuSoubor z = new ZdrojObrazkuSoubor();
 		z.naplnMapu();
 		z.setZdroj(Obrazek.POZADI.getKlic());
