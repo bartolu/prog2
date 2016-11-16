@@ -1,8 +1,11 @@
 package hra;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -16,12 +19,15 @@ import obrazek.ZdrojObrazku;
 import obrazek.ZdrojObrazkuSoubor;
 
 public class HraciPlocha extends JPanel {
+	public static final boolean DEBUG = true;
 	public static final int VYSKA = 838;
 	public static final int SIRKA = 600;
 
 	// rychlost behu pozadi
 	public static final int RYCHLOST = -2;
-
+	//TODO
+	
+	private Hrac hrac;
 	private BufferedImage imgPozadi;
 	private Timer casovacAnimace;
 	private boolean pauza = false;
@@ -40,6 +46,20 @@ public class HraciPlocha extends JPanel {
 			e.printStackTrace();
 		}
 
+		z.setZdroj(Obrazek.HRAC.getKlic());
+		BufferedImage imgHrac;
+		//hrac = new Hrac(null);
+		try {
+			imgHrac = z.getObrazek();
+			hrac = new Hrac(imgHrac);
+		} catch (IOException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		
+		
+		
 	}
 
 	public void paint(Graphics g) {
@@ -49,12 +69,19 @@ public class HraciPlocha extends JPanel {
 		g.drawImage(imgPozadi, posunPozadiX, 0, null);
 		// druhe je posunuto o sirku obrazku
 		g.drawImage(imgPozadi, posunPozadiX + imgPozadi.getWidth(), 0, null);
+		if (HraciPlocha.DEBUG) {
+			g.setColor(Color.RED);
+			g.drawString("posunPozadiX="+posunPozadiX, 0, 10);
+		}
+		
+		hrac.paint(g);
+		
 	}
 
 	private void posun() {
 		if (hraBezi && !pauza) {
 
-			// TODO
+			hrac.posun();
 			// posun pozice pozadi hraci plochy (scrollovani)
 			posunPozadiX = posunPozadiX + HraciPlocha.RYCHLOST;
 			// kdyz se pozadi cele doposouva, zacni od zacatku
@@ -82,7 +109,9 @@ public class HraciPlocha extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if (e.getButton() == MouseEvent.BUTTON1) {
-					// TODO skok hrace
+					//skok hrace
+					hrac.skok();
+					
 				}
 				// pauza
 				if (e.getButton() == MouseEvent.BUTTON3) {

@@ -1,12 +1,13 @@
 package hra;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public class Hrac {
 	public static final int SIRKA = 40;
-	public static final int VYSKA = 33;
+	public static final int VYSKA = 40;
 	// velikost skoku hrace
 	private static final int KOEF_ZRYCHLENI = 1;
 	// rychlost padu hrace
@@ -52,6 +53,11 @@ public class Hrac {
 	
 	public void paint(Graphics g){
 		g.drawImage(img, x, y, null);
+		
+		if (HraciPlocha.DEBUG) {
+			g.setColor(Color.RED);
+			g.drawString("[x="+x +",y="+y+"rychlost="+rychlost+"]", x, y-5);
+		}
 	}
 	
 	public int getVyskaHrace(){
