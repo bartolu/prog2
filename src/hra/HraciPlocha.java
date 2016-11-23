@@ -25,6 +25,14 @@ public class HraciPlocha extends JPanel {
 
 	// rychlost behu pozadi
 	public static final int RYCHLOST = -2;
+	
+	//musi byt alespon 3 zdi jinak se prvni zed "nestihne posunout za levy okraj = nestihne zajet za levy okraj hraci plochy drive nez potreba ji posunout pred pravy okraj hraci plochy a vykreslit"
+	
+	public static final int POCET_ZDI = 4;
+	private SeznamZdi seznamZdi;
+	private Zed aktualniZed;
+	private Zed predchoziZed;
+	
 	//TODO
 	
 	private Hrac hrac;
@@ -58,10 +66,36 @@ public class HraciPlocha extends JPanel {
 			e.printStackTrace();
 		}
 		
+		z.setZdroj(Obrazek.ZED.getKlic());
+		BufferedImage imgZed;
+		//hrac = new Hrac(null);
+		try {
+			imgZed = z.getObrazek();
+			Zed.setObrazek(imgZed);
+		} catch (IOException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 		
-		
+		seznamZdi = new SeznamZdi();
 		
 	}
+	
+	private void vyrobZdi(int pocet){
+		Zed zed;
+		int vzdalenost = HraciPlocha.SIRKA;
+		
+		for (int i = 0; i < pocet; i++) {
+			zed = new Zed(vzdalenost);
+			seznamZdi.add(zed);
+			vzdalenost = vzdalenost + HraciPlocha.SIRKA/2;
+		}
+		
+		vzdalenost = vzdalenost - HraciPlocha.SIRKA - Zed.SIRKA;
+		Zed.setVzdalenostposlednizdi(vzdalenost);
+		
+	}
+	
 
 	public void paint(Graphics g) {
 		super.paint(g);
@@ -75,13 +109,19 @@ public class HraciPlocha extends JPanel {
 			g.drawString("posunPozadiX="+posunPozadiX, 0, 10);
 		}
 		
+		for (Zed zed : seznamZdi) {
+			zed.paint(g);
+		}
+		
 		hrac.paint(g);
 		
 	}
 
 	private void posun() {
 		if (hraBezi && !pauza) {
-
+			for (Zed zed : seznamZdi) {
+				zed.posun();
+			}
 			hrac.posun();
 			// posun pozice pozadi hraci plochy (scrollovani)
 			posunPozadiX = posunPozadiX + HraciPlocha.RYCHLOST;
@@ -137,7 +177,7 @@ public class HraciPlocha extends JPanel {
 	}
 
 	protected void pripravNovouHru() {
-		// TODO Auto-generated method stub
+		vyrobZdi(POCET_ZDI);
 
 	}
 }
