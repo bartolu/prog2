@@ -6,6 +6,10 @@ import javax.swing.SwingUtilities;
 import hra.HraciPlocha;
 
 public class FlappyFimHlavniApp extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private HraciPlocha hp;
 
 	public FlappyFimHlavniApp() {
