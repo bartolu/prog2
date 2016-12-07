@@ -34,6 +34,5 @@ public class SeznamZdi extends ArrayList<Zed> {
 			ktera = 0;
 		}
 	}
-	
-	
+
 }

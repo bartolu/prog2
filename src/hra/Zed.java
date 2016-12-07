@@ -40,8 +40,7 @@ public class Zed {
 		// spodni cast zdi
 		g.drawImage(img, x, y, null);
 		g.drawImage(img, x, (-HraciPlocha.VYSKA) + (y - MEZERA_MEZI_HORNI_A_DOLNI_CASTI_ZDI), null);
-		
-		
+
 	}
 
 	public void posun() {
@@ -77,15 +76,15 @@ public class Zed {
 	}
 
 	public Rectangle getMezSpodniCastiZdi() {
-		return new Rectangle(x,y,SIRKA,vyska);
+		return new Rectangle(x, y, SIRKA, vyska);
 	}
 
 	public Rectangle getMezHorniCastiZdi() {
-		return new Rectangle(x,0,SIRKA,HraciPlocha.VYSKA - ( vyska + MEZERA_MEZI_HORNI_A_DOLNI_CASTI_ZDI));
+		return new Rectangle(x, 0, SIRKA, HraciPlocha.VYSKA - (vyska + MEZERA_MEZI_HORNI_A_DOLNI_CASTI_ZDI));
 	}
-	
-	public void reset(){
+
+	public void reset() {
 		vygenerujNahodneHodnotyProZed();
 	}
-	
+
 }

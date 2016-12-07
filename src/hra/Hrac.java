@@ -22,13 +22,13 @@ public class Hrac {
 
 	public Hrac(BufferedImage img) {
 		this.img = img;
-		x = (HraciPlocha.SIRKA / 2) - (SIRKA/2);
+		x = (HraciPlocha.SIRKA / 2) - (SIRKA / 2);
 		y = HraciPlocha.VYSKA / 2;
-		
+
 		rychlost = KOEF_RYCHLOST;
 	}
-	
-	//vola se po narazu do zdi, do kraje okna
+
+	// vola se po narazu do zdi, do kraje okna
 	public void reset() {
 		y = HraciPlocha.VYSKA / 2;
 		rychlost = KOEF_RYCHLOST;
@@ -37,38 +37,37 @@ public class Hrac {
 	public int getX() {
 		return x;
 	}
-	
+
 	public int getY() {
 		return y;
 	}
-	
-	public void skok(){
+
+	public void skok() {
 		rychlost = -17;
 	}
-	//zajistuje pohyb hrace
-	public void posun(){
+
+	// zajistuje pohyb hrace
+	public void posun() {
 		rychlost = rychlost + KOEF_ZRYCHLENI;
 		y = y + rychlost;
 	}
-	
-	public void paint(Graphics g){
+
+	public void paint(Graphics g) {
 		g.drawImage(img, x, y, null);
-		
+
 		if (HraciPlocha.DEBUG) {
 			g.setColor(Color.RED);
-			g.drawString("[x="+x +",y="+y+"rychlost="+rychlost+"]", x, y-5);
+			g.drawString("[x=" + x + ",y=" + y + "rychlost=" + rychlost + "]", x, y - 5);
 		}
 	}
-	
-	public int getVyskaHrace(){
+
+	public int getVyskaHrace() {
 		return img.getHeight();
 	}
-	//vraci pomyslny ctverec/obdelnik, ktery opisuje toho hrace
-	public Rectangle getMez(){
+
+	// vraci pomyslny ctverec/obdelnik, ktery opisuje toho hrace
+	public Rectangle getMez() {
 		return new Rectangle(x, y, img.getWidth(), img.getHeight());
 	}
-	
-	
-	
-	
+
 }
