@@ -19,6 +19,7 @@ public class Hrac {
 	// pocatecni Y-ova pozice hrace, meni se protoze hrac skace nahoru a dolu
 	private int y;
 	private int rychlost;
+	private int c=1;
 
 	public Hrac(BufferedImage img) {
 		this.img = img;
@@ -50,11 +51,19 @@ public class Hrac {
 	public void posun() {
 		rychlost = rychlost + KOEF_ZRYCHLENI;
 		y = y + rychlost;
+		
+		if (c>240) {
+			c=10;
+		} else {
+			c= c+10;
+		}
 	}
 
 	public void paint(Graphics g) {
 		g.drawImage(img, x, y, null);
-
+		
+		g.setColor(new Color(c,c,c));
+		g.fillRect(x, y, Hrac.SIRKA, Hrac.VYSKA);
 		if (HraciPlocha.DEBUG) {
 			g.setColor(Color.RED);
 			g.drawString("[x=" + x + ",y=" + y + "rychlost=" + rychlost + "]", x, y - 5);

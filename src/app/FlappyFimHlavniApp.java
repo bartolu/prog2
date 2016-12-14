@@ -25,8 +25,8 @@ public class FlappyFimHlavniApp extends JFrame {
 	private ManagerObrazku mo;
 
 	public FlappyFimHlavniApp() {
-	//	mo = new ManagerObrazku(new ZdrojObrazkuSoubor());
-		mo = new ManagerObrazku(new ZdrojObrazkuURL());
+		mo = new ManagerObrazku(new ZdrojObrazkuSoubor());
+	//	mo = new ManagerObrazku(new ZdrojObrazkuURL());
 	}
 
 	public void initGUI() {
