@@ -15,6 +15,7 @@ import hra.HraciPlocha;
 import obrazek.ManagerObrazku;
 import obrazek.ZdrojObrazku;
 import obrazek.ZdrojObrazkuSoubor;
+import obrazek.ZdrojObrazkuURL;
 
 public class FlappyFimHlavniApp extends JFrame {
 	/**
@@ -24,7 +25,8 @@ public class FlappyFimHlavniApp extends JFrame {
 	private ManagerObrazku mo;
 
 	public FlappyFimHlavniApp() {
-		mo = new ManagerObrazku(new ZdrojObrazkuSoubor());
+	//	mo = new ManagerObrazku(new ZdrojObrazkuSoubor());
+		mo = new ManagerObrazku(new ZdrojObrazkuURL());
 	}
 
 	public void initGUI() {
@@ -98,8 +100,3 @@ public class FlappyFimHlavniApp extends JFrame {
 	}
 
 }
-
-// TODO hrac; http://........
-// pozadi; http://........
-// zed; http://........
-// pomocne odkazy
