@@ -9,18 +9,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.SwingWorker;
 import javax.swing.Timer;
-
 import obrazek.ManagerObrazku;
 import obrazek.Obrazek;
-import obrazek.ZdrojObrazku;
-import obrazek.ZdrojObrazkuSoubor;
 
 public class HraciPlocha extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -45,6 +39,7 @@ public class HraciPlocha extends JPanel {
 	private Font font;
 	private Font fontZpravy;
 	private Hrac hrac;
+	private Bonus bonus;
 	private BufferedImage imgPozadi;
 	private Timer casovacAnimace;
 	private boolean pauza = false;
@@ -56,6 +51,8 @@ public class HraciPlocha extends JPanel {
 		hrac = new Hrac(mo.getObrazek(Obrazek.HRAC));
 		Zed.setObrazek(mo.getObrazek(Obrazek.ZED));
 		seznamZdi = new SeznamZdi();
+		bonus = new Bonus(mo.getObrazek(Obrazek.BONUS));
+		bonus.setSeznamzdi(seznamZdi);
 		this.vyrobFontyALabely();
 	}
 
@@ -111,7 +108,7 @@ public class HraciPlocha extends JPanel {
 			zed.paint(g);
 		}
 		hrac.paint(g);
-
+		bonus.paint(g);
 		lbScore.paint(g);
 		lbZprava.paint(g);
 	}
@@ -135,7 +132,7 @@ public class HraciPlocha extends JPanel {
 					zed.posun();
 				}
 				hrac.posun();
-
+				bonus.posun();
 				// hrac prosel zdi bez narazu
 				// zjistit kde se nachazi, bud pred aktualnio zdi - nedelej nic
 				// nebo za aktualni zdi -posun dalsi zed v poradi a prepocitej
@@ -145,8 +142,14 @@ public class HraciPlocha extends JPanel {
 					seznamZdi.nastavDalsiZedNaAktualni();
 					zvedniScore();
 					lbScore.setText(score + "");
-
 				}
+
+				if (isKolizeSBonusem(hrac)) {
+					bonus.nastavNovyBonus();
+					zvedniScoreBonus();
+					lbScore.setText(score + "");
+				}
+
 			}
 
 			// posun pozice pozadi hraci plochy (scrollovani)
@@ -156,6 +159,14 @@ public class HraciPlocha extends JPanel {
 				posunPozadiX = 0;
 			}
 		}
+	}
+
+	private void zvedniScoreBonus() {
+		score = score + Bonus.BODY_ZA_BONUS;
+	}
+
+	private boolean isKolizeSBonusem(Hrac hrac) {
+		return bonus.getMez().intersects(hrac.getMez());
 	}
 
 	private void ukonciAVyresetujHruPoNarazu() {
@@ -184,9 +195,7 @@ public class HraciPlocha extends JPanel {
 				repaint();
 				posun();
 			}
-
 		});
-
 		nastavZpravuPrazdna();
 		hraBezi = true;
 		casovacAnimace.start();
@@ -200,7 +209,6 @@ public class HraciPlocha extends JPanel {
 				if (e.getButton() == MouseEvent.BUTTON1) {
 					// skok hrace
 					hrac.skok();
-
 				}
 				// pauza
 				if (e.getButton() == MouseEvent.BUTTON3) {
@@ -231,6 +239,7 @@ public class HraciPlocha extends JPanel {
 	private void vyresetujHru() {
 		resetujVsechnyZdi();
 		hrac.reset();
+		bonus.nastavNovyBonus();
 		// nejprve zobraz stare score, aby hrac videl kolik bodu nasbiral
 		lbScore.setText(score + "");
 		// ale score pak vynuluj
